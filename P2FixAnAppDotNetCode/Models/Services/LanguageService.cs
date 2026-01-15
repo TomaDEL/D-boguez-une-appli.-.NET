@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
+using System;
 
 namespace P2FixAnAppDotNetCode.Models.Services
 {
@@ -22,11 +23,26 @@ namespace P2FixAnAppDotNetCode.Models.Services
         /// </summary>
         public string SetCulture(string language)
         {
-            string culture = "";
+            //string culture = "";
             // TODO complete the code 
             // Default language is "en", french is "fr" and spanish is "es".
+            if (string.IsNullOrWhiteSpace(language))
+                return "en";
+
+            language = language.ToLower();
+
+            if (language.StartsWith("fr"))
+                return "fr";
             
-            return culture;
+            if (language.StartsWith("es"))
+                return "es";
+
+            if (language.StartsWith("en"))
+                return "en";
+
+
+            return "en";
+            //return culture;
         }
 
         /// <summary>
@@ -35,8 +51,11 @@ namespace P2FixAnAppDotNetCode.Models.Services
         public void UpdateCultureCookie(HttpContext context, string culture)
         {
             context.Response.Cookies.Append(
-                CookieRequestCultureProvider.DefaultCookieName,
-                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)));
+                CookieRequestCultureProvider.DefaultCookieName, // cookie name
+                CookieRequestCultureProvider.MakeCookieValue(new RequestCulture(culture)),  // create the cookie value mais n'a pas de durée de vie
+                new CookieOptions { Expires = DateTimeOffset.UtcNow.AddYears(1),
+                IsEssential = true // set cookie expiration to 1 year
+                });
         }
     }
 }

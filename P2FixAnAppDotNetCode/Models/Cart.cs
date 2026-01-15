@@ -8,6 +8,7 @@ namespace P2FixAnAppDotNetCode.Models
     /// </summary>
     public class Cart : ICart
     {
+        private List<CartLine> _cartLines = new List<CartLine>(); //_cartLines = une liste attaché à l'objet "Cart" conservée en mémoire
         /// <summary>
         /// Read-only property for display only
         /// </summary>
@@ -17,17 +18,35 @@ namespace P2FixAnAppDotNetCode.Models
         /// Return the actual cartline list
         /// </summary>
         /// <returns></returns>
-        private List<CartLine> GetCartLineList()
+        private List<CartLine> GetCartLineList() //retourne une liste vide
         {
-            return new List<CartLine>();
+            //return new List<CartLine>(); On vient corriger cette ligne
+                        return _cartLines;
         }
 
         /// <summary>
         /// Adds a product in the cart or increment its quantity in the cart if already added
         /// </summary>//
-        public void AddItem(Product product, int quantity)
+        public void AddItem(Product product, int quantity) //vide donc pas d'ajout possible
         {
             // TODO implement the method
+            List<CartLine> cartLines = GetCartLineList(); //on récupère la liste des cartlines
+
+            CartLine line = cartLines
+                .FirstOrDefault(l => l.Product.Id == product.Id); //on cherche si le produit est déjà dans le panier
+
+            if (line == null) //si le produit n'est pas dans le panier
+                {
+                cartLines.Add(new CartLine
+                {
+                    Product = product,
+                    Quantity = quantity
+                });
+            }
+            else //si le produit est déjà dans le panier
+            {
+                line.Quantity += quantity; //on incrémente la quantité
+            }
         }
 
         /// <summary>
@@ -39,28 +58,39 @@ namespace P2FixAnAppDotNetCode.Models
         /// <summary>
         /// Get total value of a cart
         /// </summary>
-        public double GetTotalValue()
+        public double GetTotalValue()       //retourne toujours 0.0
         {
             // TODO implement the method
-            return 0.0;
+            //return 0.0;
+            return GetCartLineList()                       //on récupère la liste des cartlines
+                .Sum(l => l.Product.Price * l.Quantity);   //on calcule la somme des prix * quantités
         }
 
         /// <summary>
         /// Get average value of a cart
         /// </summary>
-        public double GetAverageValue()
+        public double GetAverageValue()     //retourne toujours 0.0
         {
             // TODO implement the method
-            return 0.0;
+           //return 0.0;
+           int totalQuantity = GetCartLineList().Sum(l => l.Quantity); //on calcule la somme des quantités
+
+            if (totalQuantity == 0)     //si la somme des quantités est égale à 0
+                return 0;
+
+            return GetTotalValue() / totalQuantity; //on retourne la valeur totale divisée par la somme des quantités
         }
 
         /// <summary>
         /// Looks after a given product in the cart and returns if it finds it
         /// </summary>
-        public Product FindProductInCartLines(int productId)
+        public Product FindProductInCartLines(int productId)  //retourne null donc ne trouve jamais le produit
         {
             // TODO implement the method
-            return null;
+            //return null;
+            return GetCartLineList()                                //on récupère la liste des cartlines
+                .FirstOrDefault(l => l.Product.Id == productId)     //on cherche la cartline avec le produit correspondant
+                ?.Product;                                          //si on trouve la cartline, on retourne le produit, sinon on retourne null
         }
 
         /// <summary>

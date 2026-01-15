@@ -1,4 +1,5 @@
 ﻿using P2FixAnAppDotNetCode.Models.Repositories;
+using System.Linq;
 
 namespace P2FixAnAppDotNetCode.Models.Services
 {
@@ -32,7 +33,10 @@ namespace P2FixAnAppDotNetCode.Models.Services
         public Product GetProductById(int id)
         {
             // TODO implement the method
-            return null;
+            //return null;
+            return _productRepository
+                .GetAllProducts()       //on récupère tous les produits
+                .FirstOrDefault(p => p.Id == id);   //on cherche le produit avec l'id correspondant
         }
 
         /// <summary>
@@ -42,6 +46,13 @@ namespace P2FixAnAppDotNetCode.Models.Services
         {
             // TODO implement the method
             // update product inventory by using _productRepository.UpdateProductStocks() method.
+            foreach (var line in cart.Lines)                    //on parcourt chaque ligne du panier
+            {
+                _productRepository.UpdateProductStocks(  //on met à jour le stock du produit
+                    line.Product.Id,                     //on passe l'id du produit
+                    line.Quantity                        //on passe la quantité commandée
+                );
+            }
         }
     }
 }

@@ -42,13 +42,15 @@ namespace P2FixAnAppDotNetCode
 
             services.Configure<RequestLocalizationOptions>(opts =>
             { 
-                var supportedCultures = new List<CultureInfo>
+                var supportedCultures = new List<CultureInfo>   //il manque le "es" pour l'espagnol
                 {
                     new CultureInfo("en-GB"),
                     new CultureInfo("en-US"),
                     new CultureInfo("en"),
                     new CultureInfo("fr-FR"),
                     new CultureInfo("fr"),
+                    new CultureInfo("es-ES"),
+                    new CultureInfo("es")
                 };
 
                 opts.DefaultRequestCulture = new RequestCulture("en");
@@ -63,10 +65,15 @@ namespace P2FixAnAppDotNetCode
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
+
+            app.UseRouting();
+
+            app.UseSession(); // Note: UseSession doit être avant UseRequestLocalization
+
             var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
             app.UseRequestLocalization(options.Value);
-            app.UseSession();
-            app.UseRouting();
+            //app.UseSession();
+            //app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

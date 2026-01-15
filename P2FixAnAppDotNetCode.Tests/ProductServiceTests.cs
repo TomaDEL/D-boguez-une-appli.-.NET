@@ -31,7 +31,7 @@ namespace P2FixAnAppDotNetCode.Tests
         public void UpdateProductQuantities()
         {
             Cart cart = new Cart();
-            IProductRepository productRepository = new ProductRepository();
+            IProductRepository productRepository = new ProductRepository();     //Cela contient la liste des produits avec leur stock initial
             IOrderRepository orderRepository = new OrderRepository();
             IProductService productService = new ProductService(productRepository, orderRepository);
 
@@ -40,7 +40,7 @@ namespace P2FixAnAppDotNetCode.Tests
             cart.AddItem(products.Where(p => p.Id == 3).First(), 2);
             cart.AddItem(products.Where(p => p.Id == 5).First(), 3);
 
-            productService.UpdateProductQuantities(cart);
+            productService.UpdateProductQuantities(cart);       //les quantités des produits dans le panier sont soustraites du stock
 
             Assert.Equal(9, products.Where(p => p.Id == 1).First().Stock);
             Assert.Equal(28, products.Where(p => p.Id == 3).First().Stock);
@@ -50,7 +50,7 @@ namespace P2FixAnAppDotNetCode.Tests
             //will simulate the process from the front end perspective
             //here testing that product stock values are decreasing for each cart checkout, not just a single time
             cart = new Cart();
-            productRepository = new ProductRepository();
+            productRepository = new ProductRepository();    //On recrée le repository / réinitialiser les stocks -> NOK Le stock doit être persistant comme une base de données
             productService = new ProductService(productRepository, orderRepository);
             products = productService.GetAllProducts();
             cart.AddItem(products.Where(p => p.Id == 1).First(), 1);
