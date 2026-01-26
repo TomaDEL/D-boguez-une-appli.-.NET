@@ -27,21 +27,21 @@ namespace P2FixAnAppDotNetCode.Models.Services
             // TODO complete the code 
             // Default language is "en", french is "fr" and spanish is "es".
             if (string.IsNullOrWhiteSpace(language))
-                return "en";
+                return "en-GB";
 
             language = language.ToLower();
 
             if (language.StartsWith("fr"))
-                return "fr";
+                return "fr-FR";
             
             if (language.StartsWith("es"))
-                return "es";
+                return "es-ES";
 
             if (language.StartsWith("en"))
-                return "en";
+                return "en-GB";
 
 
-            return "en";
+            return "en-GB";
             //return culture;
         }
 

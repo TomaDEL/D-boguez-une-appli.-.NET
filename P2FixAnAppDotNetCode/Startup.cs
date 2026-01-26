@@ -45,15 +45,15 @@ namespace P2FixAnAppDotNetCode
                 var supportedCultures = new List<CultureInfo>   //il manque le "es" pour l'espagnol
                 {
                     new CultureInfo("en-GB"),
-                    new CultureInfo("en-US"),
-                    new CultureInfo("en"),
+                    //new CultureInfo("en-US"),
+                    //new CultureInfo("en"),        //Cela donne une devise ¤ générique
                     new CultureInfo("fr-FR"),
-                    new CultureInfo("fr"),
+                    //new CultureInfo("fr"),
                     new CultureInfo("es-ES"),
-                    new CultureInfo("es")
+                    //new CultureInfo("es")         //Cela permet de supporter les variantes régionales/devise
                 };
 
-                opts.DefaultRequestCulture = new RequestCulture("en");
+                opts.DefaultRequestCulture = new RequestCulture("en-GB"); //Permet d'avoir la bonne devise
                 // Formatting numbers, dates, etc.
                 opts.SupportedCultures = supportedCultures;
                 // UI strings that we have localized.
