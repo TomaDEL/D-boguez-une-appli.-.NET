@@ -4,30 +4,30 @@ Application web de démonstration dévolppée en ASP.NET Core.
 Elle permet la consultation de produits, la gestion d'un panier, le passage de commande et la gestion multilingue.
 
 ## Prérequis
--Visual Studio 2022
--.NET Core SDK
--Git
+- Visual Studio 2022
+- .NET Core SDK
+- Git
 
-##Installation
+## Installation
 1. Cloner le dépôt :
-   git clone <lien_du_repo>
+   git clone <https://github.com/TomaDEL/D-boguez-une-appli.-.NET>
 
 2. Ouvrir la solution dans Visual Studio
 
 3. Restaurer les packages NuGet
 
 4. Lancer l'application :
--IIS Express
--ou nom du projet
+- IIS Express
+- ou nom du projet
 
-##Fonctionnalités :
--Ajout de produits au panier
--Gestion des quantités
--Passage de commande
--Validation des champs obligatoires
--Mise à jour du stock
--Gestion multilingue (en/fr/es)
+## Fonctionnalités :
+- Ajout de produits au panier
+- Gestion des quantités
+- Passage de commande
+- Validation des champs obligatoires
+- Mise à jour du stock
+- Gestion multilingue (en/fr/es)
 
 ##Tests
 Le projet contient des tests.
-Tous les tests passent avec succès.
+Tous les tests passent avec succès sauf un. Le test lié à la culture (fr/fr-FR) est volontairement non conforme au test initial, sans impact fonctionnel sur l'application. 
