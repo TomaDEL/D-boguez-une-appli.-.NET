@@ -30,4 +30,3 @@ Elle permet la consultation de produits, la gestion d'un panier, le passage de c
 
 ## Tests
 Le projet contient des tests.
-Tous les tests passent avec succès sauf un. Le test lié à la culture (fr/fr-FR) est volontairement non conforme au test initial, sans impact fonctionnel sur l'application. 

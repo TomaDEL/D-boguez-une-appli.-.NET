@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using P2FixAnAppDotNetCode.Models;
 using P2FixAnAppDotNetCode.Models.Services;
+using System.Collections.Generic;   //ajout de cette directive pour utiliser List<T>
 
 namespace P2FixAnAppDotNetCode.Controllers
 {
@@ -17,7 +18,7 @@ namespace P2FixAnAppDotNetCode.Controllers
 
         public IActionResult Index()
         {
-            Product[] products = _productService.GetAllProducts();
+            List<Product> products = _productService.GetAllProducts();      //changer le type de Product[] en List<Product>
             return View(products);
         }
     }

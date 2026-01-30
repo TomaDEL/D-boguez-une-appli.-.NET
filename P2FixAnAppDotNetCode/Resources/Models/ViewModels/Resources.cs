@@ -24,6 +24,13 @@ namespace P2FixAnAppDotNetCode.Resources.Models.ViewModels
                 return resourceManager.GetString("ErrorMissingAddress", resourceCulture);
             }
         }
+        public static string ErrorMissingZip            //Il manquait le Zip
+        {
+            get
+            {
+                return resourceManager.GetString("ErrorMissingZip", resourceCulture);
+            }
+        }
         public static string ErrorMissingCity
         {
             get
