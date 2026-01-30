@@ -30,3 +30,4 @@ Elle permet la consultation de produits, la gestion d'un panier, le passage de c
 
 ## Tests
 Le projet contient des tests.
+Tous les tests sont validés.
